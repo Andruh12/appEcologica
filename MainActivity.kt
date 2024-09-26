@@ -1,5 +1,6 @@
 package com.example.pruebass
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -22,6 +23,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.platform.LocalContext // Añadir esta importación
 import com.example.pruebass.ui.theme.PruebassTheme
 
 class MainActivity : ComponentActivity() {
@@ -37,12 +39,14 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun MainScreen() {
+    val context = LocalContext.current // Obtener el contexto local
+
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(Color(0xFFADD8E6)),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.SpaceBetween // Cambiado a SpaceBetween para distribuir los elementos
+        verticalArrangement = Arrangement.SpaceBetween
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
@@ -50,9 +54,9 @@ fun MainScreen() {
         ) {
             Text(
                 text = "Ecoshopfriend",
-                fontSize = 32.sp, // Tamaño de fuente más grande
-                color = Color.Black, // Color negro
-                fontWeight = FontWeight.Bold, // Negrita
+                fontSize = 32.sp,
+                color = Color.Black,
+                fontWeight = FontWeight.Bold,
                 style = TextStyle(
                     shadow = Shadow(
                         color = Color.Gray,
@@ -60,27 +64,30 @@ fun MainScreen() {
                         blurRadius = 4f
                     )
                 ),
-                textAlign = TextAlign.Center // Centrar el texto
+                textAlign = TextAlign.Center
             )
-            Spacer(modifier = Modifier.width(8.dp)) // Espaciador para separar el texto de la imagen
+            Spacer(modifier = Modifier.width(8.dp))
             Image(
                 painter = painterResource(id = R.drawable.hojita),
                 contentDescription = null,
-                modifier = Modifier.size(40.dp) // Ajusta el tamaño de la imagen según sea necesario
+                modifier = Modifier.size(40.dp)
             )
         }
-        Spacer(modifier = Modifier.weight(1f)) // Espaciador para empujar la imagen hacia el centro
+        Spacer(modifier = Modifier.weight(1f))
         Image(
             painter = painterResource(id = R.drawable.appimagen1),
             contentDescription = null,
             modifier = Modifier
                 .size(300.dp)
-                .padding(vertical = 20.dp) // Ajusta este valor para cambiar la separación
+                .padding(vertical = 20.dp)
         )
-        Spacer(modifier = Modifier.weight(1f)) // Espaciador para empujar el botón hacia abajo
+        Spacer(modifier = Modifier.weight(1f))
         Button(
-            onClick = { /* Acción del botón */ },
-            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF90EE90)), // Verde clarito
+            onClick = {
+                val intent = Intent(context, LoginActivity::class.java) // Usar el contexto local
+                context.startActivity(intent)
+            },
+            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF90EE90)),
             modifier = Modifier.padding(bottom = 50.dp)
         ) {
             Text(
